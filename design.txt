@@ -1,0 +1,24 @@
+In this drawing program, we will use several key abstractions to structure the code according to the Model-View-Controller (MVC) pattern. 
+The program will have distinct classes to handle the responsibilities of each component, and we will also create a class specifically for the "figures".
+
+Figure: This class represents each individual figure that can be drawn in the window, such as dots, ovals, or rectangles. 
+The Figure class will hold properties common to all figures, such as position (x, y), size (width, height), color, and shape type. 
+It will provide methods to access these properties. This abstraction ensures that each figure is a well-defined entity with consistent attributes across the program.
+
+Model: The Model class will be responsible for maintaining the program's internal state. 
+It will hold a list of all drawn Figure objects and manage undo/redo functionality through stacks. 
+The Model will allow figures to be added and removed from this list, as well as providing methods for saving and loading the drawing state. 
+Adittionally, the Model will not know about the View or Controller, adhering to the separation of concerns in the MVC pattern.
+
+View: The View class will manage the user interface and the rendering of the figures onto the window. 
+It will listen for updates from the Model and display the current list of figures on the screen. 
+The View will also display UI elements such as buttons (for undo, save, load, color selection) and a status label showing the current state of the program. 
+While the View will be aware of the Model to fetch data for rendering, it will not interact directly with the Controller.
+
+Controller: The Controller class will handle all user interactions, such as button clicks and mouse events. 
+It will interpret these inputs and update the Model accordingly. For example, when the user clicks and drags to draw a shape, the Controller will create a new Figure object and pass it to the Model. 
+The Controller will also be responsible for managing changes in the selected drawing color and shape type, as well as handling undo, redo, save, and load operations.
+
+These four classes Figure, Model, View, and Controller will work together to implement the program. 
+The Model will maintain the program’s data, the View will handle presentation and user interaction, and the Controller will manage the flow of data between the two. 
+This separation allows for flexibility and clarity in the code, making it easier to extend and maintain.
