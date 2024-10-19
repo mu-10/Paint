@@ -6,7 +6,7 @@ The Figure class will hold properties common to all figures, such as position (x
 It will provide methods to access these properties. This abstraction ensures that each figure is a well-defined entity with consistent attributes across the program.
 
 Model: The Model class will be responsible for maintaining the program's internal state. 
-It will hold a list of all drawn Figure objects and manage undo/redo functionality through stacks. 
+It will hold a list of all drawn Figure objects and manage undo/redo functionality. 
 The Model will allow figures to be added and removed from this list, as well as providing methods for saving and loading the drawing state. 
 Adittionally, the Model will not know about the View or Controller, adhering to the separation of concerns in the MVC pattern.
 

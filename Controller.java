@@ -62,7 +62,9 @@ public class Controller extends JFrame {
                         
                 public void mouseReleased(MouseEvent e) {}
                                         
-                public void mouseClicked(MouseEvent e) {}
+                public void mouseClicked(MouseEvent e) {
+                    model.Dot();
+                }
                                     
                 public void mouseEntered(MouseEvent e) {}
                                             
@@ -73,12 +75,14 @@ public class Controller extends JFrame {
             );
         
 
-        // view.addMouseMotionListener(
-        //                             new MouseMotionListener() {
-        //                             public void mouseDragged (){}
-        //                             public void mouseMoved () {}
-        //                             }
-        // );
+        view.addMouseMotionListener(
+            new MouseMotionListener() {
+                @Override
+                public void mouseDragged (MouseEvent e){}
+                @Override
+                public void mouseMoved (MouseEvent e) {}
+            }
+        );
                                 
         JFrame frame = new JFrame("Paint");
         frame.setSize(1000, 600);  
