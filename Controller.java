@@ -56,29 +56,28 @@ public class Controller extends JFrame {
     
                                
     
-        view.addMouseListener(
-            new MouseListener() {
+        view.addMouseListener(new MouseAdapter() {
+        @Override
+            public void mouseClicked(MouseEvent e) {
 
-                public void mousePressed(MouseEvent e) {
+                    Color colorToUse = model.getSelectedColor();
+                    view.addDot(e.getPoint(), colorToUse);
+                    
+                }
+
+            public void mousePressed(MouseEvent e) {
 
                     Color colorToUse = model.getSelectedColor();
                     System.out.println("Using color: " + colorToUse.toString());
 
                 }
                         
-                public void mouseReleased(MouseEvent e) {}
-                                        
-                public void mouseClicked(MouseEvent e) {
-                    model.Dot();
-                }
-                                    
+                public void mouseReleased(MouseEvent e) {}              
+                                                  
                 public void mouseEntered(MouseEvent e) {}
                                             
                 public void mouseExited(MouseEvent e) {}
-                        
-            }
-
-            );
+        });
         
 
         view.addMouseMotionListener(

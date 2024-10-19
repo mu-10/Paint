@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class View extends JPanel {
@@ -6,6 +7,9 @@ public class View extends JPanel {
 
     private JLabel footerLabel;
     private JLabel colorLabel;
+
+    private ArrayList<Point> points;
+    private ArrayList<Color> pointColors;
 
     // Buttons as instance variables
     private JButton button1;
@@ -21,6 +25,9 @@ public class View extends JPanel {
 
     public View(Model model) {
         this.model = model;
+
+        points = new ArrayList<>();
+        pointColors = new ArrayList<>();
 
         // Panel layout
         setLayout(new BorderLayout());
@@ -60,7 +67,7 @@ public class View extends JPanel {
         JPanel footerPanel = new JPanel();
         footerPanel.setLayout(new FlowLayout());
         
-        footerLabel = new JLabel("State");
+        footerLabel = new JLabel("Mode:");
         colorLabel = new JLabel("Using color: " + model.getSelectedColor().toString());
 
         footerPanel.add(footerLabel);
@@ -71,6 +78,24 @@ public class View extends JPanel {
         setBackground(Color.WHITE);  // Set background color for the view
     }
 
+        @Override
+        protected void paintComponent(Graphics g){
+
+            super.paintComponent(g);
+
+            for(int i = 0; i < points.size(); i++) {
+                Point p = points.get(i);
+                Color color = pointColors.get(i);
+                g.setColor(color);
+                g.fillOval(p.x - 5, p.y - 5, 10, 10);
+            }
+        }
+
+        public void addDot(Point p, Color color) {
+            points.add(p);
+            pointColors.add(color);
+            repaint();
+        }
     // Getters for the buttons so Controller can add listeners
     public JButton getButton1() { 
         return button1; 
