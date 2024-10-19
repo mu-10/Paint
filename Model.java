@@ -1,10 +1,21 @@
-import java.awt.Paint;
-import java.util.*;
+import java.awt.Color;
 
 public class Model {
 
+    private Color selectedColor;
+    
     public Model(){
         
+        selectedColor = Color.BLACK; // Default color
+
+    }
+
+    public void setSelectedColor(Color color) {
+        this.selectedColor = color;
+    }
+
+    public Color getSelectedColor() {
+        return selectedColor;
     }
 
     public void Dot(){

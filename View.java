@@ -4,6 +4,9 @@ import javax.swing.*;
 public class View extends JPanel {
     private Model model;
 
+    private JLabel footerLabel;
+    private JLabel colorLabel;
+
     // Buttons as instance variables
     private JButton button1;
     private JButton button2;
@@ -56,8 +59,12 @@ public class View extends JPanel {
         // footer panel for later
         JPanel footerPanel = new JPanel();
         footerPanel.setLayout(new FlowLayout());
-        JLabel footerLabel = new JLabel("State");
+        
+        footerLabel = new JLabel("State");
+        colorLabel = new JLabel("Using color: " + model.getSelectedColor().toString());
+
         footerPanel.add(footerLabel);
+        footerPanel.add(colorLabel);
 
         add(footerPanel, BorderLayout.SOUTH);
 
@@ -104,4 +111,11 @@ public class View extends JPanel {
     public JButton getButton10() { 
         return button10; 
     }
+
+    public void updateColorLabel(Color color) {
+    
+        colorLabel.setText("Using color: " + color.toString());
+    } 
+
+    
 }

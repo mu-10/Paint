@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -58,7 +59,12 @@ public class Controller extends JFrame {
         view.addMouseListener(
             new MouseListener() {
 
-                public void mousePressed(MouseEvent e) {}
+                public void mousePressed(MouseEvent e) {
+
+                    Color colorToUse = model.getSelectedColor();
+                    System.out.println("Using color: " + colorToUse.toString());
+
+                }
                         
                 public void mouseReleased(MouseEvent e) {}
                                         
@@ -83,28 +89,29 @@ public class Controller extends JFrame {
                 public void mouseMoved (MouseEvent e) {}
             }
         );
-                                
-        JFrame frame = new JFrame("Paint");
-        frame.setSize(1000, 600);  
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-        frame.setVisible(true);
-
-        setTitle("MVC Paint Program");
-        setSize(800, 600);
+                            
+        setTitle("Paint");
+        setSize(1000, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
     }
 
     public void Button1Pressed(ActionEvent e) {
+    model.setSelectedColor(Color.BLACK);
+    view.updateColorLabel(Color.BLACK);
     System.out.println("Black color selected");
     }
 
     public void Button2Pressed(ActionEvent e) {
+    model.setSelectedColor(Color.RED);
+    view.updateColorLabel(Color.RED);
     System.out.println("Red color selected");
     }
 
     public void Button3Pressed(ActionEvent e) {
+    model.setSelectedColor(Color.GREEN);
+    view.updateColorLabel(Color.GREEN);
     System.out.println("Green color selected");
     }
 
