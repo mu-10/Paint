@@ -5,75 +5,63 @@ import java.util.ArrayList;
 
 public class Model {
     public enum ShapeType { DOT, OVAL, RECT }
+    
     private Color selectedColor;
     private ShapeType selectedShape;
-    private ArrayList<Point> startPoints;
-    private ArrayList<Point> endPoints;
-    private ArrayList<Color> pointColors;
-    private ArrayList<ShapeType> shapes;
+    private Point currentStartPoint; // New addition for managing the current start point
+    private ArrayList<Shape> shapes;
 
     public Model() {
         selectedColor = Color.BLACK;
         selectedShape = ShapeType.DOT;
-        startPoints = new ArrayList<>();
-        endPoints = new ArrayList<>();
-        pointColors = new ArrayList<>();
+        currentStartPoint = null; // Initialize to null until a point is set
         shapes = new ArrayList<>();
     }
 
-    public void setSelectedColor(Color color) {
-        this.selectedColor = color;
-    }
-
-    public Color getSelectedColor() {
-        return selectedColor;
-    }
-
-    public void setSelectedShape(ShapeType shape) {
-        this.selectedShape = shape;
-    }
-
-    public ShapeType getSelectedShape() {
-        return selectedShape;
-    }
-
-    public void addShape(Point start, Point end, Color color, ShapeType shape) {
-        startPoints.add(start);
-        endPoints.add(end);
-        pointColors.add(color);
-        shapes.add(shape);
+    // Methods for managing shapes
+    public void addShape(Point start, Point end) {
+        shapes.add(new Shape(start, end, selectedColor, selectedShape));
     }
 
     public void removeLastShape() {
-        if (!startPoints.isEmpty()) {
-            startPoints.remove(startPoints.size() - 1);
-            endPoints.remove(endPoints.size() - 1);
-            pointColors.remove(pointColors.size() - 1);
+        if (!shapes.isEmpty()) {
             shapes.remove(shapes.size() - 1);
         }
     }
 
-    public ArrayList<Point> getStartPoints() {
-        return startPoints;
+    // Color and shape selection management
+    public void setCurrentColor(Color color) {
+        this.selectedColor = color;
     }
 
-    public ArrayList<Point> getEndPoints() {
-        return endPoints;
+    public void setCurrentShapeType(ShapeType shape) {
+        this.selectedShape = shape;
     }
 
-    public ArrayList<Color> getPointColors() {
-        return pointColors;
+    // Current drawing state management
+    public void setCurrentStartPoint(Point start) {
+        this.currentStartPoint = start;
     }
 
-    public ArrayList<ShapeType> getShapes() {
+    public Point getCurrentStartPoint() {
+        return currentStartPoint;
+    }
+
+    public Color getSelectedColor() {
+    return selectedColor;
+    }
+
+    public ShapeType getCurrentShapeType() {
+        return selectedShape;
+    }
+
+    public ArrayList<Shape> getShapes() {
         return shapes;
     }
 
+    // Methods for saving and loading shapes
     public void saveToFile(String filePath) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
-            out.writeObject(startPoints);
-            out.writeObject(endPoints);
-            out.writeObject(pointColors);
             out.writeObject(shapes);
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,12 +70,10 @@ public class Model {
 
     public void loadFromFile(String filePath) {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
-            startPoints = (ArrayList<Point>) in.readObject();
-            endPoints = (ArrayList<Point>) in.readObject();
-            pointColors = (ArrayList<Color>) in.readObject();
-            shapes = (ArrayList<ShapeType>) in.readObject();
+            shapes = (ArrayList<Shape>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+
 }

@@ -7,7 +7,6 @@ import java.awt.Point;
 public class Controller extends JFrame {
     private Model model;
     private View view;
-    private Point startPoint; // Starting point for oval/rectangle drawing
 
     public Controller() {
         model = new Model();
@@ -19,25 +18,25 @@ public class Controller extends JFrame {
                 JButton sourceButton = (JButton) e.getSource();
 
                 if (sourceButton == view.getButton1()) {
-                    model.setSelectedColor(Color.BLACK);
+                    model.setCurrentColor(Color.BLACK);
                     view.updateColorLabel(Color.BLACK);
 
                 } else if (sourceButton == view.getButton2()) {
-                    model.setSelectedColor(Color.RED);
+                    model.setCurrentColor(Color.RED);
                     view.updateColorLabel(Color.RED);
 
                 } else if (sourceButton == view.getButton3()) {
-                    model.setSelectedColor(Color.GREEN);
+                    model.setCurrentColor(Color.GREEN);
                     view.updateColorLabel(Color.GREEN);
 
                 } else if (sourceButton == view.getButton4()) {
-                    model.setSelectedShape(Model.ShapeType.DOT);
+                    model.setCurrentShapeType(Model.ShapeType.DOT);
 
                 } else if (sourceButton == view.getButton5()) {
-                    model.setSelectedShape(Model.ShapeType.OVAL);
+                    model.setCurrentShapeType(Model.ShapeType.OVAL);
 
                 } else if (sourceButton == view.getButton6()) {
-                    model.setSelectedShape(Model.ShapeType.RECT);
+                    model.setCurrentShapeType(Model.ShapeType.RECT);
 
                 } else if (sourceButton == view.getButton7()) {
                     undoLastAction();
@@ -51,6 +50,7 @@ public class Controller extends JFrame {
             }
         };
 
+        // Add action listeners for the buttons
         view.getButton1().addActionListener(buttonListener);
         view.getButton2().addActionListener(buttonListener);
         view.getButton3().addActionListener(buttonListener);
@@ -64,14 +64,12 @@ public class Controller extends JFrame {
         // Mouse listeners for capturing points and drawing shapes
         view.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                startPoint = e.getPoint(); // Capture the starting point
+                model.setCurrentStartPoint(e.getPoint()); // Update the current start point in the model
             }
 
             public void mouseReleased(MouseEvent e) {
-                Point endPoint = e.getPoint(); // Capture the end point on release
-
-                // Add the shape with start and end points, selected color, and selected shape
-                model.addShape(startPoint, endPoint, model.getSelectedColor(), model.getSelectedShape());
+                Point endPoint = e.getPoint(); 
+                model.addShape(model.getCurrentStartPoint(), endPoint); // Retrieve and use model's state
                 view.repaint();
             }
         });

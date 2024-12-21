@@ -65,19 +65,15 @@ public class View extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        ArrayList<Point> startPoints = model.getStartPoints();
-        ArrayList<Point> endPoints = model.getEndPoints();
-        ArrayList<Color> pointColors = model.getPointColors();
-        ArrayList<Model.ShapeType> shapes = model.getShapes();
-
-        for (int i = 0; i < startPoints.size(); i++) {
-            g.setColor(pointColors.get(i));
-            Point start = startPoints.get(i);
-            Point end = endPoints.get(i);
+        ArrayList<Shape> shapes = model.getShapes();
+        for (Shape shape : shapes) {
+            g.setColor(shape.getColor());
+            Point start = shape.getStartPoint();
+            Point end = shape.getEndPoint();
             int width = Math.abs(end.x - start.x);
             int height = Math.abs(end.y - start.y);
 
-            switch (shapes.get(i)) {
+            switch (shape.getShapeType()) {
                 case DOT:
                     g.fillOval(start.x - 5, start.y - 5, 10, 10);
                     break;
